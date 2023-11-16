@@ -1,0 +1,16 @@
+---
+spring:
+  profiles:
+    active: local
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+aws:
+  glue:
+    data:
+      catalog:
+        url: url
+  accessKey: AKIAW3EEVBMPJ5WUKAVX
+  secretKey: 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

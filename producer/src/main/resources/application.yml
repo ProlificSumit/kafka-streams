@@ -1,0 +1,57 @@
+---
+spring:
+  profiles:
+    active: local
+---
+server:
+  port: 8081
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  main:
+    banner-mode: off
+  kafka:
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.amazonaws.services.schemaregistry.serializers.avro.AWSKafkaAvroSerializer
+      bootstrap-servers: "localhost:29092"
+      security:
+        protocol: PLAINTEXT
+usage:
+  topic:
+    name: entity-usage-topic-5
+    groupId: entity-usage-group-1
+    partition-num: 2
+    replication-factor: 1
+    compressionType: snappy
+    ack: 1
+    unclean-leader-election-enabled: true
+    retention-ms: 604800000
+    retries: 15
+    retry:
+      backoff-ms: 100 #default is 100
+    max:
+      block-ms: 30000 #default is 60000
+    request:
+      timeout-ms: 180000 #default is 12000
+    delivery:
+      timeout-ms: 180000
+    metadata:
+      max:
+        age-ms: 30000 #default is 5 minutes
+    buffer:
+      memory: 33554432
+environment: local
+assetId: 205941
+
+---
+aws:
+  glue:
+    data:
+      catalog:
+        url: url
+  accessKey: AKIAUPZC3CUZLDNXDHLC
+  secretKey: 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

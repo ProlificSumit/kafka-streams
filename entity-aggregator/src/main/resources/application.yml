@@ -1,0 +1,56 @@
+---
+spring:
+  profiles:
+    active: local
+---
+
+spring:
+  kafka:
+    streams:
+      cleanup:
+        on-startup: true
+  config:
+    activate:
+      on-profile: local
+  cloud:
+    function:
+      definition: process
+    stream:
+      function:
+          definitions: process
+          bindings:
+            process-in-0:
+              destination: entity-usage-topic-1
+              group: entity-usage-group-1
+            process-out-0:
+              destination: entity-out-topic-1
+              group: entity-out-group-1
+      kafka:
+        streams:
+          bindings:
+            process-in-0:
+              consumer:
+                key-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value-serde: com.amazonaws.services.schemaregistry.kafkastreams.AWSKafkaAvroSerDe
+            process-out-0:
+              producer:
+                compression-type: snappy
+                key-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value-serde: com.amazonaws.services.schemaregistry.kafkastreams.AWSKafkaAvroSerDe
+          binder:
+            application-id: entity-usage
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: com.amazonaws.services.schemaregistry.kafkastreams.AWSKafkaAvroSerDe
+                deserialization:
+                  exception:
+                    handler: class org.apache.kafka.streams.errors.LogAndFailExceptionHandler
+        binder:
+          brokers:
+            - localhost:29092
+
+env: local
+assetId: a20541

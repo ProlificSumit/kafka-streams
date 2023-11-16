@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.1.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.learn</groupId>
+	<artifactId>entity-usage</artifactId>
+	<version>${revision}</version>
+	<name>entity-usage</name>
+	<packaging>pom</packaging>
+	<description>Demo project for Spring Boot entity usage</description>
+	<modules>
+		<module>schema</module>
+		<module>producer</module>
+		<module>entity-aggregator</module>
+	</modules>
+	<properties>
+		<java.version>17</java.version>
+		<revision>1.0.0</revision>
+		<avro-compiler.version>1.11.3</avro-compiler.version>
+		<commons-comparess.version>1.21</commons-comparess.version>
+		<avro-maven-plugin.version>1.10.2</avro-maven-plugin.version>
+		<schema-registry-serde.version>1.1.17</schema-registry-serde.version>
+		<aws-java-sdk.version>1.12.54</aws-java-sdk.version>
+		<glue-serde.version>1.0.0</glue-serde.version>
+		<aws.sdk.v2.version>2.17.3</aws.sdk.v2.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-jcl</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

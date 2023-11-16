@@ -1,0 +1,29 @@
+{
+  "type": "record",
+  "namespace": "com.learn.schema.record",
+  "name": "EmployeeExpenseDetails",
+  "fields": [
+    {
+      "name": "employeeId",
+      "type": "string"
+    },
+    {
+      "name": "employeeName",
+      "type": "string"
+    },
+    {
+      "name": "designation",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "name": "joiningDate",
+      "type": [
+        "null",
+        "string"
+      ]
+    }
+  ]
+}
