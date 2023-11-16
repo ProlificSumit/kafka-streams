@@ -43,21 +43,15 @@ public class ProducerService {
     private void sendRecord(EmployeeExpenseDetails employeeExpenseDetails) {
         //final ProducerRecord<String, EmployeeExpenseDetails> record = createRecord(employeeExpenseDetails);
         log.info("sendRecord starts : record {} ", employeeExpenseDetails);
-        CompletableFuture<SendResult<String, EmployeeExpenseDetails>> future;
-        for (int i = 0; i < 100; i++) {
-            future = kafkaTemplate.send(topicName,
-                    createKey(employeeExpenseDetails), employeeExpenseDetails);
-
-//        CompletableFuture<SendResult<String, EmployeeExpenseDetails>> future = kafkaTemplate.send(topicName,
-//                createKey(employeeExpenseDetails), employeeExpenseDetails);
-            future.whenComplete((result, ex) -> {
-                if (ex == null) {
-                    handleSuccess(employeeExpenseDetails);
-                } else {
-                    handleFailure(employeeExpenseDetails, ex);
-                }
-            });
-        }
+        CompletableFuture<SendResult<String, EmployeeExpenseDetails>> future = kafkaTemplate.send(topicName,
+                createKey(employeeExpenseDetails), employeeExpenseDetails);
+        future.whenComplete((result, ex) -> {
+            if (ex == null) {
+                handleSuccess(employeeExpenseDetails);
+            } else {
+                handleFailure(employeeExpenseDetails, ex);
+            }
+        });
     }
 
     private void handleSuccess(EmployeeExpenseDetails employeeExpenseDetails) {
